@@ -1,36 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FinSmart Admin Dashboard
 
-## Getting Started
+Admin Dashboard untuk Platform Literasi Keuangan FinSmart.
 
-First, run the development server:
+## Tech Stack
 
+- **Frontend**: Next.js 14+ (App Router), TypeScript
+- **UI Framework**: Shadcn UI (Tailwind CSS)
+- **Backend/Database**: Firebase (Authentication & Firestore)
+- **Form Handling**: React Hook Form + Zod
+- **State Management**: React Context
+
+## Fitur
+
+1. **Authentication (Admin Only)**
+   - Login dengan Email & Password
+   - Forgot Password
+   - Protected Routes dengan middleware dan AdminGuard
+
+2. **Manajemen Modul (CRUD)**
+   - Daftar modul dengan Table
+   - Create/Edit modul dengan Dialog
+   - Delete dengan konfirmasi AlertDialog
+   - Navigasi ke halaman ujian per modul
+
+3. **Manajemen Ujian (CRUD per Modul)**
+   - Daftar soal ujian per modul
+   - Create/Edit soal ujian
+   - Delete soal ujian dengan konfirmasi
+
+4. **Manajemen Kategori Event (CRUD)**
+   - Daftar kategori event
+   - Create/Edit kategori dengan auto-generate slug
+   - Delete kategori dengan konfirmasi
+
+5. **Manajemen Program/Event (CRUD)**
+   - Daftar event dengan informasi lengkap
+   - Create/Edit event dengan Date Picker untuk showAt dan hideAt
+   - Select kategori dari dropdown
+   - Delete event dengan konfirmasi
+
+## Setup
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Setup Firebase:
+   - Buat project Firebase di [Firebase Console](https://console.firebase.google.com/)
+   - Enable Authentication (Email/Password)
+   - Buat Firestore Database
+   - Copy konfigurasi Firebase ke file `.env.local`:
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-auth-domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
+NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Jalankan development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Buka [http://localhost:3000](http://localhost:3000) di browser
 
-## Learn More
+## Struktur Folder
 
-To learn more about Next.js, take a look at the following resources:
+```
+FinSmart-Admin/
+├── app/
+│   ├── (admin)/
+│   │   ├── login/          # Halaman login
+│   │   ├── modules/        # Manajemen modul
+│   │   │   └── [moduleId]/
+│   │   │       └── exams/  # Manajemen ujian per modul
+│   │   ├── categories/     # Manajemen kategori event
+│   │   ├── events/         # Manajemen event
+│   │   └── layout.tsx      # Layout admin dengan navigation
+│   ├── layout.tsx          # Root layout dengan AuthProvider
+│   └── page.tsx            # Redirect ke /login
+├── components/
+│   ├── ui/                 # Komponen Shadcn UI
+│   └── admin-guard.tsx     # Komponen untuk protected routes
+├── firebase/
+│   └── config.ts           # Konfigurasi Firebase
+├── lib/
+│   ├── auth-context.tsx    # Context untuk authentication
+│   ├── types.ts            # Type definitions
+│   └── utils.ts            # Utility functions
+└── middleware.ts           # Middleware untuk protected routes
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Firestore Collections
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `modules`: Modul pembelajaran
+  - `title` (string)
+  - `description` (string)
+  - `content` (string - markdown)
+  - `createdAt` (Timestamp)
 
-## Deploy on Vercel
+- `exams`: Soal ujian
+  - `moduleId` (string)
+  - `question` (string)
+  - `keyAnswer` (string)
+  - `maxScore` (number)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `eventCategories`: Kategori event
+  - `name` (string)
+  - `slug` (string)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `events`: Event/Program
+  - `title` (string)
+  - `description` (string)
+  - `categoryId` (string)
+  - `showAt` (Timestamp)
+  - `hideAt` (Timestamp)
+  - `registrationLink` (string)
+
+## Catatan
+
+- Pastikan untuk mengatur Firestore Security Rules yang sesuai
+- Semua route admin (kecuali `/login`) memerlukan authentication
+- Middleware akan redirect ke `/login` jika user belum login
+# FinSmart-Admin

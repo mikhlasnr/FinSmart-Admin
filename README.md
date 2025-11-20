@@ -1,6 +1,6 @@
 # FinSmart Admin Dashboard
 
-Admin Dashboard untuk Platform Literasi Keuangan FinSmart.
+Admin Dashboard for FinSmart Financial Literacy Platform.
 
 ## Tech Stack
 
@@ -9,35 +9,40 @@ Admin Dashboard untuk Platform Literasi Keuangan FinSmart.
 - **Backend/Database**: Firebase (Authentication & Firestore)
 - **Form Handling**: React Hook Form + Zod
 - **State Management**: React Context
+- **Rich Text Editor**: Tiptap
 
-## Fitur
+## Features
 
 1. **Authentication (Admin Only)**
-   - Login dengan Email & Password
+   - Login with Email & Password
    - Forgot Password
-   - Protected Routes dengan middleware dan AdminGuard
+   - Protected Routes with middleware and AdminGuard
 
-2. **Manajemen Modul (CRUD)**
-   - Daftar modul dengan Table
-   - Create/Edit modul dengan Dialog
-   - Delete dengan konfirmasi AlertDialog
-   - Navigasi ke halaman ujian per modul
+2. **Module Management (CRUD)**
+   - List modules with Table
+   - Create/Edit modules with Dialog
+   - Delete with confirmation AlertDialog
+   - Navigate to exam page per module
+   - Rich Text Editor for module content
 
-3. **Manajemen Ujian (CRUD per Modul)**
-   - Daftar soal ujian per modul
-   - Create/Edit soal ujian
-   - Delete soal ujian dengan konfirmasi
+3. **Exam Management (CRUD per Module)**
+   - List exam questions per module
+   - Create/Edit exam questions
+   - Delete exam questions with confirmation
 
-4. **Manajemen Kategori Event (CRUD)**
-   - Daftar kategori event
-   - Create/Edit kategori dengan auto-generate slug
-   - Delete kategori dengan konfirmasi
+4. **Event Category Management (CRUD)**
+   - List event categories
+   - Create/Edit categories with auto-generate slug
+   - Delete categories with confirmation
 
-5. **Manajemen Program/Event (CRUD)**
-   - Daftar event dengan informasi lengkap
-   - Create/Edit event dengan Date Picker untuk showAt dan hideAt
-   - Select kategori dari dropdown
-   - Delete event dengan konfirmasi
+5. **Program/Event Management (CRUD)**
+   - List events with complete information
+   - Create/Edit events with Date Picker for startDate and endDate
+   - Select category from dropdown (displays category name)
+   - Rich Text Editor for event description
+   - Date validation (end date must be >= start date)
+   - Auto-correct end date if it's before start date
+   - Delete events with confirmation
 
 ## Setup
 
@@ -47,10 +52,10 @@ npm install
 ```
 
 2. Setup Firebase:
-   - Buat project Firebase di [Firebase Console](https://console.firebase.google.com/)
+   - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
    - Enable Authentication (Email/Password)
-   - Buat Firestore Database
-   - Copy konfigurasi Firebase ke file `.env.local`:
+   - Create Firestore Database
+   - Copy Firebase configuration to `.env.local` file:
 ```env
 NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-auth-domain
@@ -60,69 +65,75 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
 NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
 ```
 
-3. Jalankan development server:
+3. Run development server:
 ```bash
 npm run dev
 ```
 
-4. Buka [http://localhost:3000](http://localhost:3000) di browser
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Struktur Folder
+## Folder Structure
 
 ```
 FinSmart-Admin/
 ├── app/
 │   ├── (admin)/
-│   │   ├── login/          # Halaman login
-│   │   ├── modules/        # Manajemen modul
+│   │   ├── login/          # Login page
+│   │   ├── modules/        # Module management
 │   │   │   └── [moduleId]/
-│   │   │       └── exams/  # Manajemen ujian per modul
-│   │   ├── categories/     # Manajemen kategori event
-│   │   ├── events/         # Manajemen event
-│   │   └── layout.tsx      # Layout admin dengan navigation
-│   ├── layout.tsx          # Root layout dengan AuthProvider
-│   └── page.tsx            # Redirect ke /login
+│   │   │       └── exams/  # Exam management per module
+│   │   ├── categories/     # Event category management
+│   │   ├── events/         # Event management
+│   │   └── layout.tsx      # Admin layout with navigation
+│   ├── layout.tsx          # Root layout with AuthProvider
+│   └── page.tsx            # Redirect to /login
 ├── components/
-│   ├── ui/                 # Komponen Shadcn UI
-│   └── admin-guard.tsx     # Komponen untuk protected routes
+│   ├── ui/                 # Shadcn UI components
+│   │   ├── form-field.tsx  # Reusable form field component
+│   │   ├── rich-text-editor.tsx  # Rich text editor component
+│   │   └── ...             # Other UI components
+│   └── admin-guard.tsx     # Component for protected routes
 ├── firebase/
-│   └── config.ts           # Konfigurasi Firebase
+│   └── config.ts           # Firebase configuration
 ├── lib/
-│   ├── auth-context.tsx    # Context untuk authentication
+│   ├── auth-context.tsx    # Context for authentication
 │   ├── types.ts            # Type definitions
 │   └── utils.ts            # Utility functions
-└── middleware.ts           # Middleware untuk protected routes
+└── middleware.ts           # Middleware for protected routes
 ```
 
 ## Firestore Collections
 
-- `modules`: Modul pembelajaran
+- `modules`: Learning modules
   - `title` (string)
   - `description` (string)
-  - `content` (string - markdown)
+  - `content` (string - HTML from Rich Text Editor)
   - `createdAt` (Timestamp)
 
-- `exams`: Soal ujian
+- `exams`: Exam questions
   - `moduleId` (string)
   - `question` (string)
   - `keyAnswer` (string)
   - `maxScore` (number)
 
-- `eventCategories`: Kategori event
+- `eventCategories`: Event categories
   - `name` (string)
   - `slug` (string)
 
-- `events`: Event/Program
+- `events`: Events/Programs
   - `title` (string)
-  - `description` (string)
+  - `description` (string - HTML from Rich Text Editor)
   - `categoryId` (string)
-  - `showAt` (Timestamp)
-  - `hideAt` (Timestamp)
+  - `startDate` (Timestamp)
+  - `endDate` (Timestamp)
   - `registrationLink` (string)
 
-## Catatan
+## Notes
 
-- Pastikan untuk mengatur Firestore Security Rules yang sesuai
-- Semua route admin (kecuali `/login`) memerlukan authentication
-- Middleware akan redirect ke `/login` jika user belum login
-# FinSmart-Admin
+- Make sure to configure appropriate Firestore Security Rules
+- All admin routes (except `/login`) require authentication
+- Middleware will redirect to `/login` if user is not logged in
+- The application uses light mode theme (dark mode is disabled)
+- Form fields use reusable `FormField` component for consistent error handling
+- Date validation ensures end date is always >= start date
+- Calendar component supports min/max date restrictions

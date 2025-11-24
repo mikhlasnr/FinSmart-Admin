@@ -36,3 +36,14 @@ export interface Event {
   registrationLink: string
 }
 
+// Type untuk User
+export interface User {
+  id: string
+  name: string
+  email: string
+  role: "admin" | "user"
+  avatar?: string
+  joinDate: Timestamp | Date
+  lastActive?: Timestamp | Date
+}
+

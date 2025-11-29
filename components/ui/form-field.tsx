@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
-import { Label } from "./label"
+import { FieldLabel } from "./form/field-label"
+import { ErrorMessage } from "./form/error-message"
 import { Input } from "./input"
 
 interface FormFieldProps {
@@ -20,16 +21,9 @@ export function FormField({
 }: FormFieldProps) {
   return (
     <div className={cn("space-y-2", className)}>
-      <Label className={error ? "text-red-600" : ""}>
-        {label}
-        {required && <span className="text-red-600 ml-1">*</span>}
-      </Label>
+      <FieldLabel label={label} required={required} error={error} />
       {children}
-      {error && (
-        <p className="text-sm font-medium text-red-600" style={{ color: 'rgb(220, 38, 38)' }}>
-          {error}
-        </p>
-      )}
+      <ErrorMessage error={error} />
     </div>
   )
 }

@@ -36,3 +36,39 @@ export interface Event {
   registrationLink: string
 }
 
+// Type untuk User
+export interface User {
+  id: string
+  name: string
+  email: string
+  role: "admin" | "user"
+  avatar?: string
+  joinDate: Timestamp | Date
+  lastActive?: Timestamp | Date
+}
+
+// Type untuk Exam Result Answer
+export interface ExamResultAnswer {
+  questionId: string
+  question: string
+  userAnswer: string
+  keyAnswer: string
+  maxScore: number
+  similarityScore: number
+  finalScore: number
+}
+
+// Type untuk Exam Result
+export interface ExamResult {
+  id: string
+  userId: string
+  userDisplayName: string
+  userEmail: string
+  userAvatar?: string
+  moduleId: string
+  moduleTitle: string
+  submittedAt: Timestamp | Date
+  totalScore: number
+  answers: ExamResultAnswer[]
+}
+

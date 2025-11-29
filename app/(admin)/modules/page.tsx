@@ -35,7 +35,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { FormField, FormInput } from "@/components/ui/form-field"
 import { RichTextEditor } from "@/components/ui/rich-text-editor"
-import { Plus, Edit, Trash2, Loader2, FileText } from "lucide-react"
+import { Plus, Edit, Trash2, Loader2, FileText, BarChart } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -230,6 +230,14 @@ export default function ModulesPage() {
                       >
                         <FileText className="mr-2 h-4 w-4" />
                         Exams
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => router.push(`/modules/${module.id}/stats`)}
+                      >
+                        <BarChart className="mr-2 h-4 w-4" />
+                        Stats
                       </Button>
                       <Button
                         variant="outline"

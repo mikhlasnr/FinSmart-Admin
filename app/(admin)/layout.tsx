@@ -5,7 +5,7 @@ import { useAuth } from "@/lib/auth-context"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { LogOut, BookOpen, FileText, Tag, Calendar } from "lucide-react"
+import { LogOut, BookOpen, FileText, Tag, Calendar, Users } from "lucide-react"
 
 export default function AdminLayout({
   children,
@@ -25,6 +25,7 @@ export default function AdminLayout({
     { href: "/modules", label: "Modules", icon: BookOpen },
     { href: "/categories", label: "Event Categories", icon: Tag },
     { href: "/events", label: "Events", icon: Calendar },
+    { href: "/users", label: "Users", icon: Users },
   ]
 
   return (

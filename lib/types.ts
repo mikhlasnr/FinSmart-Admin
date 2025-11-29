@@ -47,3 +47,28 @@ export interface User {
   lastActive?: Timestamp | Date
 }
 
+// Type untuk Exam Result Answer
+export interface ExamResultAnswer {
+  questionId: string
+  question: string
+  userAnswer: string
+  keyAnswer: string
+  maxScore: number
+  similarityScore: number
+  finalScore: number
+}
+
+// Type untuk Exam Result
+export interface ExamResult {
+  id: string
+  userId: string
+  userDisplayName: string
+  userEmail: string
+  userAvatar?: string
+  moduleId: string
+  moduleTitle: string
+  submittedAt: Timestamp | Date
+  totalScore: number
+  answers: ExamResultAnswer[]
+}
+

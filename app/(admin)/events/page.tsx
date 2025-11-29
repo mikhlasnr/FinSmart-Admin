@@ -69,7 +69,7 @@ const eventSchema = z
   .refine((data) => data.endDate >= data.startDate, {
     message: "End date must be after or equal to start date",
     path: ["endDate"],
-  })
+})
 
 type EventFormData = z.infer<typeof eventSchema>
 
@@ -399,7 +399,7 @@ export default function EventsPage() {
                     placeholder="Event description..."
                     error={errors.description?.message}
                   />
-                )}
+              )}
               />
             </FormField>
             <FormField
@@ -412,22 +412,22 @@ export default function EventsPage() {
                 render={({ field }) => {
                   const selectedCategory = categories.find((cat) => cat.id === field.value)
                   return (
-                    <Select value={field.value} onValueChange={field.onChange}>
+                  <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger
                         className={errors.categoryId ? "border-red-500 focus:ring-red-500" : ""}
                       >
                         <SelectValue placeholder="Select category">
                           {selectedCategory ? selectedCategory.name : ""}
                         </SelectValue>
-                      </SelectTrigger>
-                      <SelectContent>
-                        {categories.map((category) => (
-                          <SelectItem key={category.id} value={category.id}>
-                            {category.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem key={category.id} value={category.id}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   )
                 }}
               />
@@ -446,20 +446,20 @@ export default function EventsPage() {
                     className={`bg-[hsl(var(--muted))] cursor-not-allowed ${errors.startDate ? "border-red-500" : ""
                       }`}
                   />
-                  <Controller
+                <Controller
                     name="startDate"
-                    control={control}
-                    render={({ field }) => (
-                      <Calendar
-                        selected={field.value}
-                        onSelect={(date) => {
+                  control={control}
+                  render={({ field }) => (
+                        <Calendar
+                          selected={field.value}
+                          onSelect={(date) => {
                           if (date) {
                             field.onChange(date)
                           }
-                        }}
-                      />
-                    )}
-                  />
+                          }}
+                        />
+                  )}
+                />
                 </div>
                 {errors.startDate && (
                   <p className="text-sm font-medium text-red-600">
@@ -480,9 +480,9 @@ export default function EventsPage() {
                     className={`bg-[hsl(var(--muted))] cursor-not-allowed ${errors.endDate ? "border-red-500" : ""
                       }`}
                   />
-                  <Controller
+                <Controller
                     name="endDate"
-                    control={control}
+                  control={control}
                     render={({ field }) => {
                       const startDateValue = watch("startDate")
                       // Min date is start date (end date must be >= start date)
@@ -492,14 +492,14 @@ export default function EventsPage() {
                           selected={field.value}
                           onSelect={(date) => {
                             if (date) {
-                              field.onChange(date)
+                            field.onChange(date)
                             }
                           }}
                           minDate={minEndDate}
                         />
                       )
-                    }}
-                  />
+                          }}
+                        />
                 </div>
                 {errors.endDate && (
                   <p className="text-sm font-medium text-red-600">

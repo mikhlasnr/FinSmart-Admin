@@ -102,7 +102,7 @@ export default function UsersPage() {
       fetchUsers()
     } catch (error) {
       console.error("Error deleting user:", error)
-      alert("Terjadi kesalahan saat menghapus user")
+      alert("An error occurred while deleting the user")
     }
   }
 
@@ -190,9 +190,9 @@ export default function UsersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Manajemen User</h1>
+        <h1 className="text-3xl font-bold">User Management</h1>
         <p className="text-[hsl(var(--muted-foreground))] mt-1">
-          Kelola pengguna platform FinSmart
+          Manage FinSmart platform users
         </p>
       </div>
 
@@ -206,7 +206,7 @@ export default function UsersPage() {
           <CardContent>
             <div className="text-2xl font-bold">{kpis.totalUsers}</div>
             <p className="text-xs text-[hsl(var(--muted-foreground))]">
-              Total pengguna terdaftar
+              Total registered users
             </p>
           </CardContent>
         </Card>
@@ -219,7 +219,7 @@ export default function UsersPage() {
           <CardContent>
             <div className="text-2xl font-bold">{kpis.activeToday}</div>
             <p className="text-xs text-[hsl(var(--muted-foreground))]">
-              Pengguna aktif hari ini
+              Active users today
             </p>
           </CardContent>
         </Card>
@@ -232,7 +232,7 @@ export default function UsersPage() {
           <CardContent>
             <div className="text-2xl font-bold">{kpis.newThisMonth}</div>
             <p className="text-xs text-[hsl(var(--muted-foreground))]">
-              Pengguna baru bulan ini
+              New users this month
             </p>
           </CardContent>
         </Card>
@@ -241,14 +241,14 @@ export default function UsersPage() {
       {/* Data Table */}
       <Card className="overflow-visible">
         <CardHeader>
-          <CardTitle>Daftar User</CardTitle>
+          <CardTitle>User List</CardTitle>
         </CardHeader>
         <CardContent className="overflow-visible">
           <DataTable
             columns={columns}
             data={users}
             searchKey="name"
-            searchPlaceholder="Cari berdasarkan nama..."
+            searchPlaceholder="Search by name..."
           />
         </CardContent>
       </Card>
@@ -257,19 +257,19 @@ export default function UsersPage() {
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Hapus User?</AlertDialogTitle>
+            <AlertDialogTitle>Delete User?</AlertDialogTitle>
             <AlertDialogDescription>
-              Apakah Anda yakin ingin menghapus user "{selectedUser?.name}"?
-              Tindakan ini tidak dapat dibatalkan.
+              Are you sure you want to delete user "{selectedUser?.name}"?
+              This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Batal</AlertDialogCancel>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={confirmDelete}
               className="bg-[hsl(var(--destructive))] text-[hsl(var(--destructive-foreground))] hover:bg-[hsl(var(--destructive))]/90"
             >
-              Hapus
+              Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

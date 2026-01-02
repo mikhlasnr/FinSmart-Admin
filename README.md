@@ -1,8 +1,9 @@
 # FinSmart Admin Dashboard
 
 Related:
-https://github.com/mikhlasnr/FinSmart
-https://github.com/mikhlasnr/FinSmart-AI
+
+- https://github.com/mikhlasnr/FinSmart
+- https://github.com/mikhlasnr/FinSmart-AI
 
 Admin Dashboard for FinSmart Financial Literacy Platform.
 

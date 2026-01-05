@@ -121,7 +121,12 @@ export default function ExamsPage() {
 
   const handleCreate = () => {
     setSelectedExam(null)
-    reset()
+    // Explicitly reset form with default empty values
+    reset({
+      question: "",
+      keyAnswer: "",
+      maxScore: 0,
+    })
     setDialogOpen(true)
   }
 
@@ -133,6 +138,19 @@ export default function ExamsPage() {
       maxScore: exam.maxScore,
     })
     setDialogOpen(true)
+  }
+
+  const handleDialogClose = (open: boolean) => {
+    setDialogOpen(open)
+    if (!open) {
+      // Reset form when dialog closes with explicit default values
+      setSelectedExam(null)
+      reset({
+        question: "",
+        keyAnswer: "",
+        maxScore: 0,
+      })
+    }
   }
 
   const handleDelete = (exam: Exam) => {
@@ -189,7 +207,7 @@ export default function ExamsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4">
+      <div className="flex-col items-center gap-4">
         <Button variant="outline" onClick={() => router.push("/modules")}>
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
@@ -265,7 +283,7 @@ export default function ExamsPage() {
       </div>
 
       {/* Create/Edit Dialog */}
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      <Dialog open={dialogOpen} onOpenChange={handleDialogClose}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
@@ -277,7 +295,11 @@ export default function ExamsPage() {
                 : "Fill in the new exam question information below"}
             </DialogDescription>
           </DialogHeader>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form
+            key={selectedExam?.id || "new"}
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-4"
+          >
             <FormField
               label="Question"
               error={errors.question?.message}
@@ -317,7 +339,7 @@ export default function ExamsPage() {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => setDialogOpen(false)}
+                onClick={() => handleDialogClose(false)}
               >
                 Cancel
               </Button>

@@ -141,7 +141,7 @@ export default function StatsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4">
+      <div className="flex-col items-center gap-4">
         <Button variant="outline" onClick={() => router.push("/modules")}>
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
@@ -157,7 +157,7 @@ export default function StatsPage() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Average Score</CardTitle>

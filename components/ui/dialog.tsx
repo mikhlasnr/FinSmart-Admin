@@ -39,7 +39,7 @@ const Dialog = ({
 
   return (
     <DialogContext.Provider value={{ open, onOpenChange }}>
-      <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
         <div
           className="fixed inset-0 bg-black/50"
           onClick={() => onOpenChange(false)}
@@ -61,7 +61,7 @@ const DialogContent = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "relative z-50 grid w-full max-w-lg gap-4 border bg-[hsl(var(--background))] p-6 shadow-lg duration-200 sm:rounded-lg",
+        "relative z-50 grid w-full max-w-lg gap-4 border bg-[hsl(var(--background))] p-6 shadow-lg duration-200 rounded-lg",
         className
       )}
       onClick={(e) => e.stopPropagation()}
@@ -79,7 +79,7 @@ const DialogHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "flex flex-col space-y-1.5 text-center sm:text-left",
+      "flex flex-col space-y-1.5 text-left",
       className
     )}
     {...props}

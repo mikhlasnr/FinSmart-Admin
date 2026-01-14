@@ -296,13 +296,6 @@ export function RichTextEditor({
           {showToolbar && (
             <Toolbar
               ref={toolbarRef}
-              style={{
-                ...(isMobile
-                  ? {
-                    bottom: `calc(100% - ${height - rect.y}px)`,
-                  }
-                  : {}),
-              }}
             >
               {mobileView === "main" ? (
                 <MainToolbarContent

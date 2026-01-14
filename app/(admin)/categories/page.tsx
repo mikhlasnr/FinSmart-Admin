@@ -129,6 +129,15 @@ export default function CategoriesPage() {
     setDeleteDialogOpen(true)
   }
 
+  const handleDialogOpenChange = (open: boolean) => {
+    setDialogOpen(open)
+    if (!open) {
+      // Reset form and selected category when dialog closes
+      reset()
+      setSelectedCategory(null)
+    }
+  }
+
   const onSubmit = async (data: CategoryFormData) => {
     setSubmitting(true)
     try {
@@ -242,7 +251,7 @@ export default function CategoriesPage() {
       </div>
 
       {/* Create/Edit Dialog */}
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      <Dialog open={dialogOpen} onOpenChange={handleDialogOpenChange}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>

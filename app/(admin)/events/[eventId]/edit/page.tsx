@@ -176,7 +176,7 @@ export default function EditEventPage() {
   if (!event) {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-4">
+        <div className="flex-col items-center gap-4">
           <Link href="/events">
             <Button variant="ghost" size="sm">
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -273,7 +273,7 @@ export default function EditEventPage() {
           />
         </FormField>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label className={errors.startDate ? "text-red-600" : ""}>
               Start Date
